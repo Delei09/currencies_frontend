@@ -11,6 +11,7 @@ import {
 import { Header } from '../../components/Header';
 import { CreateUser } from './CreateUser';
 import { Login } from './Login';
+import { User } from '../../types';
 
 export default function Sign() {
   const [page, setPage] = useState('Entrar');

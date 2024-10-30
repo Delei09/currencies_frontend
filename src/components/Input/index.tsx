@@ -3,10 +3,9 @@ import React, { ComponentProps } from 'react';
 
 export type InputProps = ComponentProps<typeof TextField>;
 
-export default function Input({ ...props }: InputProps) {
+export default function Input({...props }: InputProps) {
   return (
     <TextField
-      {...props}
       color="primary"
       variant="outlined"
       size="small"
@@ -26,6 +25,7 @@ export default function Input({ ...props }: InputProps) {
           color: 'rgba(137,124,190,1)',
         },
       }}
+      {...props}
     />
   );
 }

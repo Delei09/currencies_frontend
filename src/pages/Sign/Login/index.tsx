@@ -1,10 +1,21 @@
 import { Typography } from '@mui/material';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Button from '../../../components/Button';
 import Input from '../../../components/Input';
+import { User } from '../../../types';
 
 export function Login() {
+  const [user, setUser] = useState<Partial<User>>({});
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUser({ ...user, [event.target.name]: event.target.value });
+  };
+
+  const handleLogin = () => {
+    console.log(user);
+  };
+
   return (
     <>
       <Typography
@@ -15,9 +26,22 @@ export function Login() {
       >
         Acesse a plataforma
       </Typography>
-      <Input label="Usuario" />
-      <Input label="Senha" />
-      <Button>Login</Button>
+      <Input
+        id="Usuario"
+        label="Usuario"
+        name="username"
+        value={user.username ?? ''}
+        onChange={handleChange}
+      />
+      <Input
+        id="Senha"
+        label="Senha"
+        name="password"
+        type='password'
+        onChange={handleChange}
+        value={user.password ?? ''}
+      />
+      <Button onClick={handleLogin}>Login</Button>
     </>
   );
 }
