@@ -1,11 +1,14 @@
-import React from 'react'
-import Sign from './pages/Sign/Sign'
-import './App.css'
+import './App.css';
+
+import React from 'react';
+import { RouterProvider } from 'react-router-dom';
+
+import { router } from './route';
 
 export default function App() {
   return (
     <div>
-      <Sign />
+      <RouterProvider router={router} />
     </div>
   )
 }

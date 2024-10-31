@@ -1,6 +1,6 @@
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import { Box, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import React from 'react';
 
 import {
   ContainerFluid,
@@ -9,15 +9,14 @@ import {
   ContainerLogin,
 } from '../../components/Container';
 import { Header } from '../../components/Header';
-import { CreateUser } from './CreateUser';
-import { Login } from './Login';
-import { User } from '../../types';
+import { BaseSignProps } from '../../types';
+import { useNavigate } from 'react-router-dom';
 
-export default function Sign() {
-  const [page, setPage] = useState('Entrar');
-
+export default function BaseSign({ content }: BaseSignProps) {
+  const navigate = useNavigate();
   const changePage = (page: string) => {
-    setPage(page);
+    if (page === 'Entrar') return navigate('/login');
+    return navigate('/create-user');
   };
 
   return (
@@ -50,9 +49,7 @@ export default function Sign() {
             </Typography>
           </ContainerGrid4>
           <ContainerGrid8>
-            <ContainerLogin>
-              {page === 'Entrar' ? <Login /> : <CreateUser />}
-            </ContainerLogin>
+            <ContainerLogin>{content}</ContainerLogin>
           </ContainerGrid8>
         </ContainerFluid>
       </body>

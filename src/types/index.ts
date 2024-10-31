@@ -5,3 +5,7 @@ export type User = {
   password: string;
   currencies: string[];
 }
+
+export type BaseSignProps = {
+  content: React.ReactNode
+}
