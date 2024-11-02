@@ -1,32 +1,16 @@
-import { TextField } from '@mui/material';
-import React, { ComponentProps } from 'react';
+import React, { InputHTMLAttributes } from 'react';
 
-export type InputProps = ComponentProps<typeof TextField>;
+import * as S from './styles';
 
-export default function Input({...props }: InputProps) {
+export type InputProps = InputHTMLAttributes<HTMLInputElement> & {
+  icon?: React.ReactNode;
+};
+
+export default function Input({ icon, ...props }: InputProps) {
   return (
-    <TextField
-      color="primary"
-      variant="outlined"
-      size="small"
-      sx={{
-        '& .MuiOutlinedInput-root': {
-          '& fieldset': {
-            borderColor: 'rgba(137,124,190,1)',
-          },
-          '&.Mui-focused fieldset': {
-            borderColor: 'rgba(137,124,190,1)',
-          },
-        },
-        '& .MuiInputLabel-root': {
-          color: 'rgba(137,124,190,1)',
-        },
-        '& .MuiInputLabel-root.Mui-focused': {
-          color: 'rgba(137,124,190,1)',
-        },
-      }}
-      {...props}
-    />
+    <S.StyledInput>
+      {icon && <S.StyledIcon>{icon}</S.StyledIcon>}
+      <S.Input {...props} />
+    </S.StyledInput>
   );
 }
-

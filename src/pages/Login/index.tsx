@@ -1,52 +1,81 @@
-import { Typography } from '@mui/material';
 import React, { useState } from 'react';
+import { CiLogin } from 'react-icons/ci';
+import { MdEmail } from 'react-icons/md';
+import { RiLockPasswordFill } from 'react-icons/ri';
+import { Link } from 'react-router-dom';
 
 import Button from '../../components/Button';
+import { ContainerForms } from '../../components/Container';
 import Input from '../../components/Input';
-import { User } from '../../types';
-import BaseSign from '../components/BaseSign';
+import { Description } from '../../components/Typography';
+import theme from '../../global/theme';
+import { BaseSign } from '../components/BaseSign';
 
 export function Login() {
-  const [user, setUser] = useState<Partial<User>>({});
+  const [credentials, setCredentials] = useState({ email: '', password: '' });
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUser({ ...user, [event.target.name]: event.target.value });
+    setCredentials({ ...credentials, [event.target.name]: event.target.value });
   };
 
-  const handleLogin = () => {
-    console.log(user);
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsLoading(true);
+    try {
+      console.log('Login submitted', credentials);
+      setIsLoading(false);
+    } catch (error) {
+      console.error('Erro ao fazer login:', error);
+      setIsLoading(false);
+    }
   };
 
   return (
     <BaseSign
-      content={
-        <>
-          <Typography
-            fontSize={30}
-            variant="h2"
-            component="h2"
-            fontFamily={'Roboto'}
-          >
-            Acesse a plataforma
-          </Typography>
+      icon={<CiLogin size={60} />}
+      title="Entre com seu email"
+      description="Acesse para pegar dados de moedas em tempo real"
+    >
+      <ContainerForms onSubmit={handleSubmit}>
+        <div style={{ gap: '16px', display: 'flex', flexDirection: 'column' }}>
           <Input
-            id="Usuario"
-            label="Usuario"
-            name="username"
-            value={user.username ?? ''}
+            icon={<MdEmail size={20} />}
+            placeholder="Email"
+            name="email"
+            value={credentials.email}
             onChange={handleChange}
           />
           <Input
-            id="Senha"
-            label="Senha"
-            name="password"
+            icon={<RiLockPasswordFill size={20} />}
+            placeholder="Senha"
             type="password"
+            name="password"
+            value={credentials.password}
             onChange={handleChange}
-            value={user.password ?? ''}
           />
-          <Button onClick={handleLogin}>Login</Button>
-        </>
-      }
-    />
+          <Link to="#" style={{ textDecoration: 'none', alignSelf: 'end' }}>
+            <Description font="14" color={theme.color.blue}>
+              Esqueceu a senha?
+            </Description>
+          </Link>
+        </div>
+        <Button type="submit" disabled={isLoading}>
+          {isLoading ? 'Carregando...' : 'Entrar'}
+        </Button>
+      </ContainerForms>
+      <Link
+        to="/create-user"
+        style={{
+          textDecoration: 'none',
+          alignSelf: 'center',
+        }}
+      >
+        <Description font="14" color={theme.color.blue}>
+          Não tem uma conta ainda? Cadastre-se agora
+        </Description>
+      </Link>
+    </BaseSign>
   );
 }
+

@@ -49,7 +49,7 @@ export function Header({ pages, changePage, user }: HeaderProps) {
   return (
     <AppBar
       position="fixed"
-      sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, bgcolor: '#0800f1' }}
       style={{ backgroundColor: 'transparent' }}
     >
       <Container maxWidth="xl">
