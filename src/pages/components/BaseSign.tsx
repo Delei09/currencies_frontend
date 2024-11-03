@@ -3,7 +3,8 @@ import React, { ReactNode } from 'react';
 import BoxShadow from '../../components/BoxShadow';
 import { Container, ContainerMedium } from '../../components/Container';
 import { Description, Title } from '../../components/Typography';
-import { FixedLogoContainer, Logo } from './styles';
+import { FixedLogoContainer } from './styles';
+import Logo from '../../components/Logo';
 
 type BaseSignProps = {
   title: string;
@@ -12,16 +13,19 @@ type BaseSignProps = {
   children: React.ReactNode;
 };
 
-export function BaseSign({ children, title, description , icon}: BaseSignProps) {
+export function BaseSign({
+  children,
+  title,
+  description,
+  icon,
+}: BaseSignProps) {
   return (
     <Container>
       <FixedLogoContainer>
-        <Logo src={require('../../assets/logo.png')} />
+        <Logo />
       </FixedLogoContainer>
       <ContainerMedium>
-        <BoxShadow>
-          {icon}
-        </BoxShadow>
+        <BoxShadow>{icon}</BoxShadow>
         <Title>{title}</Title>
         <Description>{description}</Description>
         <BoxShadow style={{ marginTop: '50px' }}>{children}</BoxShadow>

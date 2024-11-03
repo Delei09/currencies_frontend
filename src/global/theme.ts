@@ -5,12 +5,14 @@ import '@fontsource/roboto/700.css';
 
 const theme = {
   color: {
-    blue: '#1a12c9',
-    blueLight: '#0080ff',
-    green:'#00c3f7',
-    greenLight: '#54fbdd',
+    primary: '#388e3c',
+    primaryLight: '#66bb6a',
+    second:'#43a047',
+    secondLight: '#8bc34a',
     black: '#1e1926',
     white: '#fdf7ff',
+    navigate: '#f1f8e9',
+    body: '#e0e0e0',
   },
   fonts: {
     primary: 'Roboto',

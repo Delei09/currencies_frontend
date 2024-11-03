@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const StyledButton = styled.button`
   width: 300px;
   height: 50px;
-  background-color: ${(props) => props.theme.color.blueLight};
+  background-color: ${(props) => props.theme.color.primaryLight};
   color: ${(props) => props.theme.color.white};
   text-transform: none;
   font-size: 20px;
@@ -16,7 +16,7 @@ export const StyledButton = styled.button`
   border: none;
 
   &:hover {
-    background-color: ${(props) => props.theme.color.blue};
+    background-color: ${(props) => props.theme.color.primary};
   }
 
 `;

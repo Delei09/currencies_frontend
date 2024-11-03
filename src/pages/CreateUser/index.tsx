@@ -1,14 +1,17 @@
+import axios from 'axios';
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 import { FaUser } from 'react-icons/fa';
 import { IoIosCreate } from 'react-icons/io';
 import { MdEmail } from 'react-icons/md';
 import { RiLockPasswordFill } from 'react-icons/ri';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Button from '../../components/Button';
 import { ContainerForms } from '../../components/Container';
 import Input from '../../components/Input';
 import { Description } from '../../components/Typography';
+import { URL_BASE } from '../../constants';
 import theme from '../../global/theme';
 import { User } from '../../types';
 import { BaseSign } from '../components/BaseSign';
@@ -21,6 +24,8 @@ export function CreateUser() {
   });
   const [isLoading, setIsLoading] = useState(false);
 
+  const navigate = useNavigate()
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUser({ ...user, [event.target.name]: event.target.value });
   };
@@ -29,9 +34,17 @@ export function CreateUser() {
     event.preventDefault();
     setIsLoading(true);
     try {
-      console.log(user);
+      await axios.post(`${URL_BASE}/users`, user);
+      toast.success('Conta criada com sucesso!');
+      setTimeout(() => {
+        navigate('/login')
+      }, 2000);
     } catch (error) {
-      console.error('Erro ao criar conta:', error);
+      if (axios.isAxiosError(error) && error.response) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error('Erro desconhecido, tente novamente' );
+      }
     } finally {
       setIsLoading(false);
     }
@@ -71,7 +84,7 @@ export function CreateUser() {
             to="/login"
             style={{ textDecoration: 'none', alignSelf: 'end' }}
           >
-            <Description font="14" color={theme.color.blue}>
+            <Description font="14" color={theme.color.primary}>
               Ja tem uma conta? Entre
             </Description>
           </Link>

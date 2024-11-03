@@ -7,7 +7,7 @@ export const Container = styled.i`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(to bottom, ${(props) => props.theme.color.blueLight}, ${(props) => props.theme.color.green});
+  background: linear-gradient(to bottom, ${(props) => props.theme.color.primaryLight}, ${(props) => props.theme.color.second});
 `
 
 export const ContainerLoginS = styled.div`

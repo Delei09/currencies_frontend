@@ -25,7 +25,6 @@ export const FixedLogoContainer = styled.div`
   animation: ${animation} 3s ease-in infinite alternate;
 `;
 
-export const Logo = styled.img`
-  width: 80%;
-  height: 80%;
+export const ContainerLogo = styled.div`
+  width: 100%;
 `;

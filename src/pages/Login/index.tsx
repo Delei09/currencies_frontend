@@ -1,19 +1,26 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useContext, useState } from 'react';
+import toast from 'react-hot-toast';
 import { CiLogin } from 'react-icons/ci';
-import { MdEmail } from 'react-icons/md';
+import { FaUser } from 'react-icons/fa';
 import { RiLockPasswordFill } from 'react-icons/ri';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Button from '../../components/Button';
 import { ContainerForms } from '../../components/Container';
 import Input from '../../components/Input';
 import { Description } from '../../components/Typography';
+import { URL_BASE } from '../../constants';
+import { useUser } from '../../context/user';
 import theme from '../../global/theme';
 import { BaseSign } from '../components/BaseSign';
 
 export function Login() {
-  const [credentials, setCredentials] = useState({ email: '', password: '' });
+  const [credentials, setCredentials] = useState({ username: '', password: '' });
   const [isLoading, setIsLoading] = useState(false);
+  const { user, setUser } = useUser();
+
+  const navigate = useNavigate()
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCredentials({ ...credentials, [event.target.name]: event.target.value });
@@ -23,10 +30,21 @@ export function Login() {
     event.preventDefault();
     setIsLoading(true);
     try {
-      console.log('Login submitted', credentials);
+      const response = await axios.post(`${URL_BASE}/auth/login`, credentials);
+      localStorage.setItem('access_token', response.data.access_token);
+      localStorage.setItem('refresh_token', response.data.refresh_token);
+      
+      setUser(response.data.user);
+      toast.success('Login realizado com sucesso!');
+
+      setTimeout(() => {
+        navigate('/home')
+      }, 2000);
+
       setIsLoading(false);
     } catch (error) {
-      console.error('Erro ao fazer login:', error);
+      console.log(error);
+      toast.error('Email ou senha inválidos!');
       setIsLoading(false);
     }
   };
@@ -39,11 +57,11 @@ export function Login() {
     >
       <ContainerForms onSubmit={handleSubmit}>
         <div style={{ gap: '16px', display: 'flex', flexDirection: 'column' }}>
-          <Input
-            icon={<MdEmail size={20} />}
-            placeholder="Email"
-            name="email"
-            value={credentials.email}
+        <Input
+            icon={<FaUser size={20} />}
+            placeholder="Usuario"
+            name="username"
+            value={credentials.username}
             onChange={handleChange}
           />
           <Input
@@ -55,7 +73,7 @@ export function Login() {
             onChange={handleChange}
           />
           <Link to="#" style={{ textDecoration: 'none', alignSelf: 'end' }}>
-            <Description font="14" color={theme.color.blue}>
+            <Description font="14" color={theme.color.primary}>
               Esqueceu a senha?
             </Description>
           </Link>
@@ -71,7 +89,7 @@ export function Login() {
           alignSelf: 'center',
         }}
       >
-        <Description font="14" color={theme.color.blue}>
+        <Description font="14" color={theme.color.primary}>
           Não tem uma conta ainda? Cadastre-se agora
         </Description>
       </Link>
