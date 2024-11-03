@@ -20,4 +20,5 @@ export type CurrencyProps = {
   varBid: number;
   pctChange: number;
   favorite: boolean;
+  timestamp?: number;
 };

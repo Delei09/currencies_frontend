@@ -32,7 +32,7 @@ export default function Home() {
       }
     };
     fetchData();
-  }, []);
+  }, [user]);
 
   const getDataCurrencies = useCallback(async (): Promise<CurrencyProps[]> => {
     const access_token = localStorage.getItem('access_token');
