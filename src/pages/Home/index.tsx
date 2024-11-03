@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useCallback, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import io from 'socket.io-client';
 
 import Body from '../../components/Body';
 import BoxShadow from '../../components/BoxShadow';
@@ -20,34 +21,28 @@ export default function Home() {
   const { user, setUser } = useUser();
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const currenciesWithFavorite = await getDataCurrencies();
-        setCurrencies(currenciesWithFavorite);
-      } catch (error) {
-        console.error(error);
-        toast.error('Erro ao carregar as moedas');
-      } finally {
+    const socket = io('http://localhost:4000');
+    const timer = setInterval(() => {
+      socket.emit('currencies');
+      socket.on('currencies', (data) => {
+        const currenciesWithFavorite = formatCurrency(Object.values(data) as unknown as CurrencyProps[]);
+        setCurrencies(() => currenciesWithFavorite);
         setIsLoading(false);
-      }
-    };
-    fetchData();
-  }, [user]);
+      });
+    }, 1000);
 
-  const getDataCurrencies = useCallback(async (): Promise<CurrencyProps[]> => {
-    const access_token = localStorage.getItem('access_token');
-    const config = {
-      headers: { Authorization: `Bearer ${access_token}` },
+    return () => {
+      clearInterval(timer);
+      socket.disconnect();
     };
-    const data = await axios.get(`${URL_BASE}/currencies`, config);
-    const currencies = Object.values(data.data as CurrencyProps[]);
+  }, [user?.currenciesFavorite]);
 
-    const currenciesWithFavorite = currencies.map((currency) => ({
+  const formatCurrency = (data: CurrencyProps[]) => {
+    return data.map((currency) => ({
       ...currency,
       favorite: !!user?.currenciesFavorite?.includes(currency.code),
     }));
-    return currenciesWithFavorite;
-  }, [user]);
+  };
 
   const handleFavoriteCurrency = async (code: string, index: number) => {
     const currencyIndex = currencies.findIndex(

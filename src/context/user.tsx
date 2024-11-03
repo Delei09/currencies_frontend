@@ -21,7 +21,6 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
           const { data } = await axios.post(`${URL_BASE}/auth/refresh`, {
             refreshToken: refreshToken,
           });
-          console.log(data);
           setUser(data.user);
           localStorage.setItem('access_token', data.access_token);
           localStorage.setItem('refresh_token', data.refresh_token);

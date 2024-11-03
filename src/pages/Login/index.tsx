@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 import { CiLogin } from 'react-icons/ci';
 import { FaUser } from 'react-icons/fa';
@@ -16,11 +16,14 @@ import theme from '../../global/theme';
 import { BaseSign } from '../components/BaseSign';
 
 export function Login() {
-  const [credentials, setCredentials] = useState({ username: '', password: '' });
+  const [credentials, setCredentials] = useState({
+    username: '',
+    password: '',
+  });
   const [isLoading, setIsLoading] = useState(false);
-  const { user, setUser } = useUser();
+  const { setUser } = useUser();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCredentials({ ...credentials, [event.target.name]: event.target.value });
@@ -33,12 +36,12 @@ export function Login() {
       const response = await axios.post(`${URL_BASE}/auth/login`, credentials);
       localStorage.setItem('access_token', response.data.access_token);
       localStorage.setItem('refresh_token', response.data.refresh_token);
-      
+
       setUser(response.data.user);
       toast.success('Login realizado com sucesso!');
 
       setTimeout(() => {
-        navigate('/home')
+        navigate('/home');
       }, 2000);
 
       setIsLoading(false);
@@ -57,7 +60,7 @@ export function Login() {
     >
       <ContainerForms onSubmit={handleSubmit}>
         <div style={{ gap: '16px', display: 'flex', flexDirection: 'column' }}>
-        <Input
+          <Input
             icon={<FaUser size={20} />}
             placeholder="Usuario"
             name="username"
@@ -96,4 +99,3 @@ export function Login() {
     </BaseSign>
   );
 }
-
