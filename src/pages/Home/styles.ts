@@ -20,4 +20,12 @@ export const ContainerHome = styled.div`
   flex-direction: column;
   align-items: center;
   background-color: ${(props) => props.theme.color.body};
+  width: (100% - 200px);
+  height: 100vh;
+  margin-left: 200px;
+
+  @media (max-width: 768px) {
+    margin-left: 0;
+    margin-top: 80px;
+  }
 `;

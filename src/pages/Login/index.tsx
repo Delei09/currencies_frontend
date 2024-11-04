@@ -14,6 +14,7 @@ import { URL_BASE } from '../../constants';
 import { useUser } from '../../context/user';
 import theme from '../../global/theme';
 import { BaseSign } from '../components/BaseSign';
+import Loading from '../../components/Loading';
 
 export function Login() {
   const [credentials, setCredentials] = useState({
@@ -55,7 +56,7 @@ export function Login() {
   return (
     <BaseSign
       icon={<CiLogin size={60} />}
-      title="Entre com seu email"
+      title="Entre com seu usuário e senha"
       description="Acesse para pegar dados de moedas em tempo real"
     >
       <ContainerForms onSubmit={handleSubmit}>
@@ -82,7 +83,7 @@ export function Login() {
           </Link>
         </div>
         <Button type="submit" disabled={isLoading}>
-          {isLoading ? 'Carregando...' : 'Entrar'}
+          {isLoading ? <Loading /> : 'Entrar'}
         </Button>
       </ContainerForms>
       <Link

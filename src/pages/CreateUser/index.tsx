@@ -15,6 +15,7 @@ import { URL_BASE } from '../../constants';
 import theme from '../../global/theme';
 import { User } from '../../types';
 import { BaseSign } from '../components/BaseSign';
+import Loading from '../../components/Loading';
 
 export function CreateUser() {
   const [user, setUser] = useState<Partial<User>>({
@@ -90,7 +91,7 @@ export function CreateUser() {
           </Link>
         </div>
         <Button type="submit" disabled={isLoading}>
-          {isLoading ? 'Criando conta...' : 'Criar conta'}
+          {isLoading ? <Loading /> : 'Criar conta'}
         </Button>
       </ContainerForms>
     </BaseSign>

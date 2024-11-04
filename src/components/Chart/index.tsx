@@ -5,6 +5,7 @@ import { Line } from 'react-chartjs-2';
 import { CurrencyProps } from '../../types';
 import BoxShadow from '../BoxShadow';
 import { Title } from '../Typography';
+import * as S from './styles';
 
 ChartJS.register(
   LineElement,
@@ -45,12 +46,14 @@ const CurrencyChart: React.FC<CurrencyChartProps> = ({ data }) => {
   };
 
   return (
-    <BoxShadow style={{ margin: '16px' }}>
-      <Title style={{ textAlign: 'center', padding: '10px' }}>
-        Gráfico de Cotação do {data.length && data[0].name?.split('/')[0]}
-      </Title>
-      <Line data={chartData} style={{ width: '100%', height: '350px' }} />
-    </BoxShadow>
+    <S.ContainerChart>
+      <BoxShadow>
+        <Title style={{ textAlign: 'center', padding: '10px' }}>
+          Gráfico de Cotação do {data.length && data[0].name?.split('/')[0]}
+        </Title>
+        <Line data={chartData} />
+      </BoxShadow>
+    </S.ContainerChart>
   );
 };
 

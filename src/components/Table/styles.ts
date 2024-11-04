@@ -1,13 +1,16 @@
 import styled from 'styled-components';
 
+//TODO: FALTA DEIXAR RESPONSIVO
+export const TableContainer = styled.div`
+  overflow-x: auto; 
+`;
+
 export const TableS = styled.table`
-  width: 70vw;
   border-collapse: collapse;
   background: ${(props) => props.theme.color.white};
   box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
   border: 1px solid ${(props) => props.theme.color.primary};
   font-family: ${(props) => props.theme.fonts.primary};
-  overflow-y: auto;
   min-height: 30vh;
   max-height: 30vh;
 `;
@@ -42,5 +45,3 @@ export const TableCellS = styled.td`
   color: ${(props) => props.theme.color.black};
   text-align: center;
 `;
-
-

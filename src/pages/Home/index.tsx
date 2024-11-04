@@ -82,7 +82,7 @@ export default function Home() {
   return (
     <S.ContainerHome>
       <Header title="Home" username={user?.username ?? ''} />
-      <Navigation />
+      <Navigation menuSelected="home" />
       <Body>
         <S.ContainerTitle>
           <TitleBold style={{ textAlign: 'center' }}>Moedas</TitleBold>

@@ -4,15 +4,13 @@ import React, { useEffect, useState } from 'react';
 import Body from '../../components/Body';
 import CurrencyChart from '../../components/Chart';
 import { Header } from '../../components/Header';
+import Loading from '../../components/Loading';
 import Navigation from '../../components/Navigation';
-import {
-  Description,
-  DescriptionBold,
-  TitleBold,
-} from '../../components/Typography';
+import { Description, DescriptionBold, TitleBold } from '../../components/Typography';
 import { URL_BASE } from '../../constants';
 import { useUser } from '../../context/user';
 import { CurrencyProps } from '../../types';
+import * as S from './styles';
 
 export default function Favorites() {
   const { user } = useUser();
@@ -27,7 +25,6 @@ export default function Favorites() {
         headers: { Authorization: `Bearer ${acesss_token}` },
       };
 
-      console.log(user?.currenciesFavorite);
       const dataFavorite = user?.currenciesFavorite?.map(async (currency) => {
         const { data } = await axios.get(
           `${URL_BASE}/currencies/${currency}`,
@@ -37,7 +34,6 @@ export default function Favorites() {
       });
 
       const currencies = await Promise.all(dataFavorite ?? []);
-      console.log(currencies);
       setCurrenciesFavorite(currencies as [CurrencyProps[]]);
       setIsLoading(false);
     };
@@ -47,7 +43,7 @@ export default function Favorites() {
 
   const renderChart = () => {
     if (isLoading) {
-      return <DescriptionBold>Carregando...</DescriptionBold>;
+      return <Loading />;
     }
 
     if (currenciesFavorite) {
@@ -60,9 +56,9 @@ export default function Favorites() {
   };
 
   return (
-    <div>
+    <S.ContainerFavorite>
       <Header title="Moedas Favoritas" username={user?.username ?? ''} />
-      <Navigation />
+      <Navigation menuSelected="favorites" />
       <Body>
         <TitleBold>Moedas Favoritas</TitleBold>
         <DescriptionBold>
@@ -74,7 +70,7 @@ export default function Favorites() {
         </Description>
         {renderChart()}
       </Body>
-    </div>
+    </S.ContainerFavorite>
   );
 }
 

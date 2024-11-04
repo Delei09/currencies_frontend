@@ -14,6 +14,9 @@ export const StyledButton = styled.button`
   transition: all 0.2s ease-in-out;
   outline: none;
   border: none;
+  justify-content: center;
+  align-items: center;
+  display: flex;
 
   &:hover {
     background-color: ${(props) => props.theme.color.primary};

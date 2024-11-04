@@ -1,24 +1,27 @@
 import React, { ComponentProps } from 'react';
+import { Link } from 'react-router-dom';
 
 import { ContainerLogo } from '../../pages/components/styles';
 import Logo from '../Logo';
 import * as S from './styles';
-import { Link } from 'react-router-dom';
 
-type NavigationProps = ComponentProps<'nav'>;
-export default function Navigation({ children }: NavigationProps) {
+type NavigationProps = {
+  menuSelected?: 'home' | 'favorites';
+} & ComponentProps<'nav'>;
+
+export default function Navigation({ menuSelected }: NavigationProps) {
   return (
     <S.NavigationS>
       <ContainerLogo>
         <Logo />
       </ContainerLogo>
       <S.ListS>
-        <S.ListItemS>
+        <S.ListItemS isSelected={menuSelected === 'home'}>
           <Link style={{ textDecoration: 'none' }} to="/home">
             Home
           </Link>
         </S.ListItemS>
-        <S.ListItemS>
+        <S.ListItemS isSelected={menuSelected === 'favorites'}>
           <Link style={{ textDecoration: 'none' }} to="/favorites">
             Moedas Favoritas
           </Link>
