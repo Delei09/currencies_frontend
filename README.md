@@ -1,46 +1,52 @@
-# Getting Started with Create React App
+# Conversor de Moedas
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este projeto é um conversor de moedas que permite converter valores para Real e adicionar moedas favoritas. Ele utiliza dados em tempo real para fornecer cotações atualizadas.
 
-## Available Scripts
+## Instalação
 
-In the project directory, you can run:
+Para começar, siga estas etapas:
 
-### `npm start`
+1. **Clone o repositório:**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+   ```bash
+   git clone https://github.com/Delei09/currencies_frontend
+   cd currencies_frontend
+   ```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+2. **Instale as dependências:**
 
-### `npm test`
+   ```bash
+   npm install
+   ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Uso
 
-### `npm run build`
+Para executar o aplicativo, use o seguinte comando:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+npm start
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Isso iniciará o aplicativo em modo de desenvolvimento. Você pode acessá-lo em [http://localhost:3000](http://localhost:3000).
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Funcionalidades
 
-### `npm run eject`
+- **Conversão de Moedas:** Insira um valor em qualquer moeda e veja a conversão para Real.
+- **Moedas Favoritas:** Você pode adicionar moedas à sua lista de favoritas para acesso rápido.
+- **Dados em Tempo Real:** O aplicativo busca cotações atualizadas automaticamente.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Adicionando Favoritos
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Selecione uma moeda que você deseja adicionar aos favoritos.
+2. Clique no botão "Adicionar aos Favoritos" ao lado da moeda.
+3. Os favoritos serão salvos e estarão disponíveis na seção de moedas favoritas do aplicativo.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Implementações pendentes
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Deixar responsivo
+- Usar useMemo e useCallback para melhorar a performace
+- Melhorar o design da tela
+- Criar teste unitarios
+- Criar app com react native
+- Refatorar fluxo websocket e de token
+- Configurar lint e prettier
